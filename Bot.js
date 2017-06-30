@@ -33,8 +33,13 @@ client.connect(dbaccessurl, function (err, db) {
         });
 
         app.get('/index', function (req, res) {
-            res.send("Hi , Server --!");
+            res.send("1719244614");
             console.log("as")
+        })
+
+
+        app.get('/Challenge',function(req,res){
+            
         })
 
         var users = db.collection("users");
