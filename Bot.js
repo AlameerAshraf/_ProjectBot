@@ -37,9 +37,27 @@ client.connect(dbaccessurl, function (err, db) {
             console.log("as")
         })
 
+        app.get('/Webhock',function(req,res){
+             if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === "Alameer_Verfiy" ){
+                 console.log("Validated Webhock");
+                 res.status(200).send(req.query['hub.challenge']);
+             }
+             else{
+                 console.log(req.query['hub.verify_token']);
+                 console.error("Failed validation. Make sure the validation tokens match.");
+                 res.sendStatus(403);  
+             }
+        })
 
-        app.get('/Challenge',function(req,res){
-            
+
+        // Receive Messages 
+        app.post('/Webhock',function(req,res){
+            var data = req.body;
+            if (data.object == 'page'){
+                data.entry.forEach(function(entry) {
+                    
+                });
+            }
         })
 
         var users = db.collection("users");
