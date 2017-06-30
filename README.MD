@@ -62,10 +62,6 @@ Add additional notes about how to deploy this on a live system
 * [Express](https://expressjs.com/) - Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 * [MongoDB](https://www.mongodb.com/) - NoSqlDB
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. 
-
 ## Authors
 
 * **Alameer Ashraf** - *Initial work* - [Alameer Ashraf Hassan](https://github.com/AlameerAshraf)
