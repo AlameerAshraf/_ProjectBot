@@ -22,7 +22,6 @@ client.connect(dbaccessurl, function (err, db) {
 
         console.log("Data Base access accomplished successfully --!")
 
-
         var tunnel = localtunnel(4569, function (err, tunnel) {
             if (err){
 
@@ -33,7 +32,7 @@ client.connect(dbaccessurl, function (err, db) {
         });
 
         app.get('/index', function (req, res) {
-            res.send("hisham 7abib qalbi");
+            res.send("Arsani <3");
         })
 
         app.get('/Webhock',function(req,res){
@@ -71,12 +70,6 @@ client.connect(dbaccessurl, function (err, db) {
                         }
                     });
                 });
-
-                // Assume all went well.
-                //
-                // You must send back a 200, within 20 seconds, to let us know
-                // you've successfully received the callback. Otherwise, the request
-                // will time out and we will keep trying to resend.
                 res.sendStatus(200);
             }
         });
@@ -99,9 +92,6 @@ client.connect(dbaccessurl, function (err, db) {
             var messageAttachments = message.attachments;
 
             if (messageText) {
-
-                // If we receive a text message, check to see if it matches a keyword
-                // and send back the example. Otherwise, just echo the text we received.
                 switch (messageText) {
                     case 'generic':
                         sendGenericMessage(senderID);
