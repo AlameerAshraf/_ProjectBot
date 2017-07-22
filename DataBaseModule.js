@@ -19,18 +19,30 @@ exported.ConnectToDataBase = function(){
             resolve(1);
             // Function To insert Record - record is aparamter , collection is a paramter .. 
             exported.InsertRecord = function(Collection , Object){
-                // Check if the collection is existed in db ! 
+                return new Promise((resolve , reject) => {
+                    // Check if the collection is existed in db ! 
                   db.listCollections().toArray((err,collinfo) => {
                       collinfo.forEach(function(element) {
-                          console.log(element.name)
+                          if(Collection == element.name){
+                              var ObjColl = db.collection(Collection);
+                              ObjColl.insertOne(Object , (err,res)=>{
+                                  if(!err){
+                                       resolve(1);
+                                  }
+                                  else{
+                                      reject(0);
+                                  }
+                              })
+                          }else{
+                              console.log("Collection to insert is not a valid collection in Db"); 
+                          }
                       });
                   })
+                });
             }
         }
     })
 })
 }
 
-// exported.InsertRecord = function(Object){
 
-// }

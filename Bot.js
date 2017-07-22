@@ -162,7 +162,12 @@ var DbState = DbHandler.ConnectToDataBase();
 DbState.then((msg) => {
     if (msg != 0){
         console.log("DbConnected --!");
-        DbHandler.InsertRecord("sd","s");
+        var User = {UfbId : "259998458"}; 
+        DbHandler.InsertRecord("Users",User).then((msg)=>{
+            if (msg != 0){
+                console.log("User Inserted"); 
+            }
+        })
     }
     else{ 
         console.log("DbError --!"); 
