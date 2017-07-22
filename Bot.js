@@ -10,27 +10,6 @@ var BodyParser = require('body-parser');
 var DbHandler = require('./self-modules/DataBaseModule.js');
 
 
-// var client = mongodb.MongoClient;
-// var dbaccessurl = "mongodb://127.0.0.1:27017/_Project";
-
-
-// client.connect(dbaccessurl, function (err, db) {
-//     if (err) {
-//         var test = Test.console2("sd");
-//         console.log("Something Went Wrong --!!");
-//     }
-//     else {
-
-//         console.log("Data Base access accomplished successfully --!")
-
-//         var tunnel = localtunnel(4569, function (err, tunnel) {
-//             if (err){
-
-//             }
-//             else{
-//                 console.log(tunnel.url);
-//             }
-//         });
 
 //         app.get('/index', function (req, res) {
 //             res.send("Arsani <3");
@@ -162,6 +141,14 @@ var DbState = DbHandler.ConnectToDataBase();
 DbState.then((msg) => {
     if (msg != 0){
         console.log("DbConnected --!");
+        
+        // Create a locla HTTPS host to Test ! 
+        var tunnel = localtunnel(4569, function (err, tunnel) {
+            if (!err) {
+                console.log(tunnel.url);
+            }
+        });
+        
         var User = {UfbId : "259998458"}; 
         DbHandler.InsertRecord("Users",User).then((msg)=>{
             if (msg != 0){
