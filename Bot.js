@@ -15,44 +15,9 @@ var DbHandler = require('./self-modules/DataBaseModule.js');
 //             res.send("Arsani <3");
 //         })
 
-//         app.get('/Webhock',function(req,res){
-//              if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === "Alameer_Verfiy" ){
-//                  console.log("Validated Webhock");
-//                  res.status(200).send(req.query['hub.challenge']);
-//              }
-//              else{
-//                  console.log(req.query['hub.verify_token']);
-//                  console.error("Failed validation. Make sure the validation tokens match.");
-//                  res.sendStatus(403);  
-//              }
-//         })
 
 
-//         // Receive Messages 
-//         app.post('/webhook', function (req, res) {
-//             console.log("assss");
-//             var data = req.body;
 
-//             // Make sure this is a page subscription
-//             if (data.object === 'page') {
-
-//                 // Iterate over each entry - there may be multiple if batched
-//                 data.entry.forEach(function (entry) {
-//                     var pageID = entry.id;
-//                     var timeOfEvent = entry.time;
-
-//                     // Iterate over each messaging event
-//                     entry.messaging.forEach(function (event) {
-//                         if (event.message) {
-//                             receivedMessage(event);
-//                         } else {
-//                             console.log("Webhook received unknown event: ", event);
-//                         }
-//                     });
-//                 });
-//                 res.sendStatus(200);
-//             }
-//         });
 
 
 
@@ -148,7 +113,45 @@ DbState.then((msg) => {
                 console.log(tunnel.url);
             }
         });
-        
+
+        // Setup Webhook !
+        app.get('/webhook', function (req, res) {
+            if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === "Alameer_Verfiy") {
+                res.status(200).send(req.query['hub.challenge']);
+                console.log("Validated Webhock");
+            }
+            else {
+                console.error("Failed validation. Make sure the validation tokens match.");
+                res.sendStatus(403);
+            }
+        })
+
+        // Receive Messages 
+        app.post('/webhook', function (req, res) {
+            console.log("assss");
+            var data = req.body;
+
+            // Make sure this is a page subscription
+            if (data.object === 'page') {
+
+                // Iterate over each entry - there may be multiple if batched
+                data.entry.forEach(function (entry) {
+                    var pageID = entry.id;
+                    var timeOfEvent = entry.time;
+
+                    // Iterate over each messaging event
+                    entry.messaging.forEach(function (event) {
+                        if (event.message) {
+                            receivedMessage(event);
+                        } else {
+                            console.log("Webhook received unknown event: ", event);
+                        }
+                    });
+                });
+                res.sendStatus(200);
+            }
+        });
+
         var User = {UfbId : "259998458"}; 
         DbHandler.InsertRecord("Users",User).then((msg)=>{
             if (msg != 0){
